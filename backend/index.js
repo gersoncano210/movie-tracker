@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const moviesRouter = require('./routes/movies');
 const tvRouter = require('./routes/tv');
@@ -8,6 +9,7 @@ const app = express();
 const PORT = 3001;
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/movies', moviesRouter);
 app.use('/api/tv', tvRouter);
