@@ -34,6 +34,34 @@ router.get('/trending', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener populares' });
   }
 });
+// Lista de géneros disponibles
+router.get('/genres/list', async (req, res) => {
+  try {
+    const response = await axios.get('https://api.themoviedb.org/3/genre/movie/list', {
+      params: { api_key: TMDB_API_KEY }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener géneros' });
+  }
+});
+
+// Películas de un género específico
+router.get('/genres/:genreId', async (req, res) => {
+  const { genreId } = req.params;
+
+  try {
+    const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
+      params: {
+        api_key: TMDB_API_KEY,
+        with_genres: genreId
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener películas del género' });
+  }
+});
 
 // Detalle de una película específica
 router.get('/:id', async (req, res) => {

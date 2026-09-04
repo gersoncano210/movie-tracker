@@ -148,3 +148,183 @@ button:hover {
 .auth-form a {
   color: #e50914;
 }
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.link-perfil {
+  color: #f5f5f5;
+  text-decoration: none;
+  background-color: #1f1f1f;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.link-perfil:hover {
+  background-color: #333;
+}
+.carrusel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.carrusel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+}
+
+.carrusel::-webkit-scrollbar {
+  display: none;
+}
+
+.flecha {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+}
+
+.flecha-izq {
+  margin-right: -18px;
+}
+
+.flecha-der {
+  margin-left: -18px;
+}
+
+.flecha:hover {
+  background-color: rgba(229, 9, 20, 0.9);
+}
+
+.tarjeta-carrusel {
+  flex: 0 0 140px;
+  width: 140px;
+  max-width: 140px;
+}
+
+.tarjeta-carrusel img {
+  width: 140px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.tarjeta-carrusel p {
+  font-size: 13px;
+  margin: 6px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 140px;
+  max-width: 140px;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #333;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 70px;
+  width: 70px;
+  object-fit: contain;
+}
+
+.marca h1 {
+  margin: 0;
+  font-size: 50px;
+  font-weight: 700;
+  color: #e0d6f9;
+}
+
+.slogan {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.acciones-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-secundario {
+  background-color: #333;
+}
+
+.btn-secundario:hover {
+  background-color: #4a4a4a;
+}
+
+.grilla-lista {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+@media (max-width: 700px) {
+  .grilla-lista {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  color: #f5f5f5;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  animation: aparecer 0.2s ease;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+

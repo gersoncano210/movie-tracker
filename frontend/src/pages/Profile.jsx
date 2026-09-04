@@ -1,20 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/footer';
 import '../App.css';
 
 function Profile() {
   const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const scrollRef = useRef(null);
 
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
   const [miLista, setMiLista] = useState([]);
-
-  const buscarPeliculas = async () => {
-    const response = await fetch(
-      `http://localhost:3001/api/movies/search?query=${query}`
-    );
-    const data = await response.json();
-    setResults(data.results);
-  };
 
   const cargarMiLista = async () => {
     const response = await fetch(`http://localhost:3001/api/mylist/${usuario.id}`);
@@ -25,28 +18,6 @@ function Profile() {
   useEffect(() => {
     cargarMiLista();
   }, []);
-
-  const guardarPelicula = async (pelicula) => {
-    const response = await fetch('http://localhost:3001/api/mylist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        tmdbId: pelicula.id,
-        mediaType: 'movie',
-        title: pelicula.title,
-        posterPath: pelicula.poster_path,
-        userId: usuario.id
-      })
-    });
-
-    if (response.status === 409) {
-      alert('Esta película ya está en tu lista');
-      return;
-    }
-
-    alert(`${pelicula.title} guardada en tu lista`);
-    cargarMiLista();
-  };
 
   const marcarComoVista = async (id) => {
     const rating = prompt('¿Qué calificación le das? (1-10)');
@@ -73,45 +44,20 @@ function Profile() {
     cargarMiLista();
   };
 
-  const cerrarSesion = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    window.location.href = '/login';
+  const mover = (direccion) => {
+    scrollRef.current.scrollBy({
+      left: direccion * 600,
+      behavior: 'smooth'
+    });
   };
 
   return (
     <div className="App">
-      <h1>🎬 Movie Tracker</h1>
+      <Header mostrarLinkPerfil={false} />
       <p>Conectado como: {usuario.email}</p>
-      <button onClick={cerrarSesion}>Cerrar sesión</button>
-
-      <div className="buscador">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Buscar una película..."
-        />
-        <button onClick={buscarPeliculas}>Buscar</button>
-      </div>
-
-      <div className="resultados">
-        {results.map((pelicula) => (
-          <div key={pelicula.id} className="tarjeta">
-            <img
-              src={`https://image.tmdb.org/t/p/w200${pelicula.poster_path}`}
-              alt={pelicula.title}
-            />
-            <p>{pelicula.title}</p>
-            <button onClick={() => guardarPelicula(pelicula)}>
-              Guardar en mi lista
-            </button>
-          </div>
-        ))}
-      </div>
 
       <h2>Mi lista</h2>
-      <div className="resultados">
+      <div className="grilla-lista">
         {miLista.map((entrada) => (
           <div key={entrada.id} className="tarjeta">
             <img
@@ -127,6 +73,8 @@ function Profile() {
           </div>
         ))}
       </div>
+
+      <Footer />
     </div>
   );
 }
