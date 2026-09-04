@@ -19,6 +19,10 @@ function Profile() {
     cargarMiLista();
   }, []);
 
+  useEffect(() => {
+  document.title = 'Cinea - Mi Perfil';
+}, []);
+
   const marcarComoVista = async (id) => {
     const rating = prompt('¿Qué calificación le das? (1-10)');
     if (!rating) return;
@@ -54,7 +58,7 @@ function Profile() {
   return (
     <div className="App">
       <Header mostrarLinkPerfil={false} />
-      <p>Conectado como: {usuario.email}</p>
+      <p>Hola, {usuario.nombre}</p>
 
       <h2>Mi lista</h2>
       <div className="grilla-lista">

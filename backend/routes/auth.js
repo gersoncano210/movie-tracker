@@ -6,7 +6,7 @@ const prisma = require('../prismaClient');
 
 // Registro de un nuevo usuario
 router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, nombre, apellido, telefono } = req.body;
 
   try {
     const passwordEncriptada = await bcrypt.hash(password, 10);
@@ -14,11 +14,19 @@ router.post('/register', async (req, res) => {
     const nuevoUsuario = await prisma.user.create({
       data: {
         email,
-        password: passwordEncriptada
+        password: passwordEncriptada,
+        nombre,
+        apellido,
+        telefono
       }
     });
 
-    res.status(201).json({ id: nuevoUsuario.id, email: nuevoUsuario.email });
+    res.status(201).json({ 
+        id: nuevoUsuario.id, 
+        email: nuevoUsuario.email,
+        nombre: nuevoUsuario.nombre,
+        apellido: nuevoUsuario.apellido
+    });
   } catch (error) {
     if (error.code === 'P2002') {
       return res.status(409).json({ error: 'Ese correo ya está registrado' });
@@ -51,7 +59,14 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    res.json({ token, usuario: { id: usuario.id, email: usuario.email } });
+    res.json({ token, usuario: { 
+      id: usuario.id, 
+      email: usuario.email,
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      telefono: usuario.telefono
+    }
+  });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al iniciar sesión' });

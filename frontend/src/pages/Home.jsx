@@ -106,6 +106,10 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [toast]);
 
+useEffect(() => {
+  document.title = 'Cinea - Inicio';
+}, []);
+
 
   const buscarPeliculas = async () => {
     const response = await fetch(

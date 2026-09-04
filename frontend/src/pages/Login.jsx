@@ -1,5 +1,7 @@
-import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/footer';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -27,10 +29,13 @@ function Login() {
     localStorage.setItem('usuario', JSON.stringify(data.usuario));
     navigate('/');
   };
+  useEffect(() => {
+  document.title = 'Cinea - Iniciar sesión';
+  }, []);
 
   return (
     <div className="auth-container">
-      <h1>🎬 Movie Tracker</h1>
+      <Header mostrarLinkPerfil={false} mostrarCerrarSesion={false} />
       <form onSubmit={handleLogin} className="auth-form">
         <h2>Iniciar sesión</h2>
         {error && <p className="error">{error}</p>}
@@ -51,6 +56,7 @@ function Login() {
         <button type="submit">Entrar</button>
         <p>¿No tienes cuenta? <Link to="/register">Regístrate</Link></p>
       </form>
+      <Footer />
     </div>
   );
 }
