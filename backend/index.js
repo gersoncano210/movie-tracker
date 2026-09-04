@@ -4,6 +4,7 @@ const express = require('express');
 const moviesRouter = require('./routes/movies');
 const tvRouter = require('./routes/tv');
 const mylistRouter = require('./routes/mylist');
+const authRouter = require('./routes/auth');
 
 const app = express();
 const PORT = 3001;
@@ -14,6 +15,7 @@ app.use(cors());
 app.use('/api/movies', moviesRouter);
 app.use('/api/tv', tvRouter);
 app.use('/api/mylist', mylistRouter);
+app.use('/api/auth', authRouter);
 
 
 app.get('/', (req, res) => {
